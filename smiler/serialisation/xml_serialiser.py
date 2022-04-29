@@ -3,6 +3,10 @@ from lxml import etree
 from lxml.etree import Element, SubElement
 from ..granularity import Granularity
 from smiler.instrumenting.utils import Utils as Utils2
+import sys
+
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 class XmlSerialiser(object):
 
@@ -51,7 +55,13 @@ class XmlSerialiser(object):
 
     def create_xml_method(self, xml_class, smali_method):
         xml_method = SubElement(xml_class, "method")
-        xml_method.set("name", smali_method.name)
+        try:
+            smali_method.name.decode('ascii')
+        except UnicodeDecodeError:
+            xml_method.set("name", "")
+        else:
+            xml_method.set("name", smali_method.name)
+
         xml_method.set("desc", smali_method.get_method_argument_desc())
         return xml_method
 

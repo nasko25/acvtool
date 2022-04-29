@@ -16,6 +16,10 @@ from chameleon.utils import Markup
 from instrumenting.utils import Utils as Utils2
 from serialisation.xml_serialiser import XmlSerialiser
 import re
+import sys
+
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 COV_CLASS = 'cov' #html class, ex: '<span class="%COV_CLASS%"/>'
 EXEC_CLASS = 'exec'
